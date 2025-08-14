@@ -86,7 +86,11 @@
     }
     .google { background: #db4437; color: #fff; }
     .facebook { background: #1877f2; color: #fff; }
+    #g_id_onload, .g_id_signin { display: flex; justify-content: center; margin-top: 0.5rem; }
   </style>
+
+  <!-- Google Identity SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
   <div class="login-card">
@@ -103,9 +107,25 @@
         <label for="remember">Remember password</label>
       </div>
       <button class="btn" type="submit">Login</button>
-      <button class="social-btn google"><span>G</span> Sign in with Google</button>
+
+      <!-- زر Google Login الحقيقي -->
+      <div id="g_id_onload"
+           data-client_id="988648761151-q1tascfia2p0dsuid43ru1m2qgb6mkpj.apps.googleusercontent.com"
+           data-callback="handleCredentialResponse">
+      </div>
+      <div class="g_id_signin" data-type="standard"></div>
+
+      <!-- زر Facebook (تصميم فقط) -->
       <button class="social-btn facebook"><span>f</span> Sign in with Facebook</button>
     </form>
   </div>
+
+  <script>
+    function handleCredentialResponse(response) {
+      console.log("Encoded JWT ID token: " + response.credential);
+      alert("تم تسجيل الدخول عبر Google!");
+      // هنا يمكنك إرسال الـ token لخادمك للتحقق أو تسجيل المستخدم
+    }
+  </script>
 </body>
 </html>
